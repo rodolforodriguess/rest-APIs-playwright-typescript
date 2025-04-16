@@ -3,7 +3,9 @@ import baseAPIUrl from './environmentBaseUrls'
 import endpoints from './apiEndpoints'
 
 function bindUrl(endpoint: string, env: string, userId?: string, isbn?: string) {
+    console.log(endpoint + ' endpoint parameter passed to bidUrl function');
     const parts = endpoint.replace(/\/.+$/, '').split('.');
+    console.log(parts + ' parts constant after endpoint url has its slashes taken out')
 
     const endpointParts = parts.map((part) => {
         switch (part) {
@@ -11,8 +13,7 @@ function bindUrl(endpoint: string, env: string, userId?: string, isbn?: string) 
                 return baseAPIUrl[env].api;
                 default:
                     return apiPath[part] ?? '/';
-        }
-        
+        } 
     });
 
     if (endpoint === endpoints.account.get) {
@@ -21,8 +22,9 @@ function bindUrl(endpoint: string, env: string, userId?: string, isbn?: string) 
     if (endpoint === endpoints.books.put) {
         endpointParts.push(isbn);
     }
-
-    return endpointParts.join('/');
+    const finalEndPoint = endpointParts.join('/');
+    console.log(finalEndPoint + ' result returned by BindUrl function');
+    return finalEndPoint;
 }
 
 function searchParamsForUrl(page: string, userId?: string) {
@@ -35,9 +37,11 @@ function searchParamsForUrl(page: string, userId?: string) {
       default:
         queryParams = {};
     }
-  
-    return new URLSearchParams(queryParams).toString();
-  }
+    const nW = new URLSearchParams(queryParams).toString();
+    console.log(nW + ' result returned by searchParamsForUrl function');
+    return nW;
+  }   
+    
   
   export function buildUrl(endpoint: string, userId?: string, isbn?: string) {
     const env = process.env.ENV!;
@@ -47,7 +51,7 @@ function searchParamsForUrl(page: string, userId?: string) {
     ]
     .filter(Boolean)
     .join('?');
-    
+    console.log(url + ' result returned by url const from buildUrl function');
     return url;
   }
 

@@ -2,7 +2,9 @@
   "name": "rest-apis-playwright-typescript",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "test-create-book": "npx playwright test book-store-api-calls.spec.ts"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -10,5 +12,8 @@
   "devDependencies": {
     "@playwright/test": "^1.51.1",
     "@types/node": "^22.14.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.5.0"
   }
 }
